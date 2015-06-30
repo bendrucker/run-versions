@@ -35,10 +35,6 @@ function run (options, callback) {
     throw new Error('command is required')
   }
 
-  versions.forEach(function (version) {
-    assert(semver.valid(version), 'invalid semver: ' + version)
-  })
-
   if (options.npm) {
     command = 'npm run-script ' + command
   }
