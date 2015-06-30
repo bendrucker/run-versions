@@ -1,8 +1,6 @@
 'use strict'
 
 var extend = require('xtend')
-var semver = require('semver')
-var assert = require('assert')
 var EventEmitter = require('events').EventEmitter
 var ap = require('ap')
 var series = require('run-series')
@@ -47,6 +45,8 @@ function run (options, callback) {
   series(versions.map(function (version) {
     return ap.partial(eachVersion, version)
   }), done)
+
+  return events
 
   function done (err, results) {
     if (err) return callback(err)
