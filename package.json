@@ -26,7 +26,6 @@
   "dependencies": {
     "ap": "~0.2.0",
     "run-series": "~1.1.2",
-    "semver": "~4.3.6",
     "spawn-npm-install": "~1.1.0",
     "xtend": "~4.0.0"
   },
