@@ -1,4 +1,4 @@
-# run-versions [![Build Status](https://travis-ci.org/bendrucker/run-versions.svg?branch=master)](https://travis-ci.org/bendrucker/run-versions)
+# run-versions [![Build Status](https://travis-ci.org/bendrucker/run-versions.svg?branch=master)](https://travis-ci.org/bendrucker/run-versions) [![Greenkeeper badge](https://badges.greenkeeper.io/bendrucker/run-versions.svg)](https://greenkeeper.io/)
 
 > Run a script across multiple versions of an npm package
 
