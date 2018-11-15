@@ -1,2 +1,3 @@
-npm ls has-require --depth=0 --json >> test/log
-echo '\n' >> test/log
+get_version='JSON.stringify({version: require("has-require/package.json").version})'
+node -p "$get_version" >> test/log
+printf '\n' >> test/log

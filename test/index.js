@@ -2,11 +2,12 @@
 
 var test = require('tape')
 var fs = require('fs')
+var path = require('path')
 var run = require('../')
 
 test(function (t) {
   t.plan(7)
-  var logPath = __dirname + '/log'
+  var logPath = path.resolve(__dirname, 'log')
   var config = {
     name: 'has-require',
     versions: ['1.0.0', '1.1.0'],
@@ -24,7 +25,7 @@ test(function (t) {
     var items = log.replace(/\s+$/, '').split('\n\n').map(JSON.parse)
     t.equal(items.length, 2)
     t.deepEqual(items.map(function (item) {
-      return item.dependencies['has-require'].version
+      return item.version
     }), config.versions)
     fs.unlinkSync(logPath)
   }
