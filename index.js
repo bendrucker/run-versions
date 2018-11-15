@@ -75,7 +75,10 @@ function run (options, callback) {
       callback(null)
       events.emit('postinstall', version)
     }
-    var child = npmSpawn.install([name + '@' + version], options.child_process, installDone)
+    var child = npmSpawn.install([
+      name + '@' + version,
+      '--no-save'
+    ], options.child_process, installDone)
     events.emit('preinstall', version, child)
   }
 
@@ -103,4 +106,3 @@ function run (options, callback) {
     events.emit('preuninstall', version, child)
   }
 }
-
