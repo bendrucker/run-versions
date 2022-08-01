@@ -102,7 +102,7 @@ function run (options, callback) {
       callback(null)
       events.emit('postuninstall', version)
     }
-    var child = npmSpawn.uninstall(name, options.child_process, uninstallDone)
+    var child = npmSpawn.uninstall([name, '--no-save'], options.child_process, uninstallDone)
     events.emit('preuninstall', version, child)
   }
 }
