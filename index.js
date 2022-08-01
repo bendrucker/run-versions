@@ -1,15 +1,15 @@
 'use strict'
 
-var extend = require('xtend')
-var EventEmitter = require('events').EventEmitter
-var ap = require('ap')
-var series = require('run-series')
-var npmSpawn = require('spawn-npm-install')
-var spawn = require('child_process').spawn
+const extend = require('xtend')
+const EventEmitter = require('events').EventEmitter
+const ap = require('ap')
+const series = require('run-series')
+const npmSpawn = require('spawn-npm-install')
+const spawn = require('child_process').spawn
 
 module.exports = run
 
-var defaults = {
+const defaults = {
   // npm script
   npm: false,
   // options passed to any child_process
@@ -21,9 +21,9 @@ var defaults = {
 function run (options, callback) {
   options = extend(defaults, options)
 
-  var name = options.name
-  var command = options.command
-  var versions = options.versions
+  const name = options.name
+  let command = options.command
+  const versions = options.versions
 
   if (typeof name !== 'string') {
     throw new Error('package name is required')
@@ -37,10 +37,10 @@ function run (options, callback) {
     command = 'npm run-script ' + command
   }
 
-  var args = command.split(' ')
+  const args = command.split(' ')
   command = args.shift()
 
-  var events = new EventEmitter()
+  const events = new EventEmitter()
 
   series(versions.map(function (version) {
     return ap.partial(eachVersion, version)
@@ -52,7 +52,7 @@ function run (options, callback) {
     if (err) return callback(err)
     callback(null, results.map(function (passed, index) {
       return {
-        passed: passed,
+        passed,
         version: versions[index]
       }
     }))
@@ -75,7 +75,7 @@ function run (options, callback) {
       callback(null)
       events.emit('postinstall', version)
     }
-    var child = npmSpawn.install([
+    const child = npmSpawn.install([
       name + '@' + version,
       '--no-save'
     ], options.child_process, installDone)
@@ -83,12 +83,12 @@ function run (options, callback) {
   }
 
   function script (version, callback) {
-    var child = spawn(command, args, options.child_process)
+    const child = spawn(command, args, options.child_process)
     events.emit('prescript', version, child)
     child.once('exit', function (code) {
       // emit postscript first since error isn't always failure
       events.emit('postscript', version)
-      var passed = code === 0
+      const passed = code === 0
       events.emit('result', version, passed)
       if (passed) return callback(null, true)
       if (options.bail) return callback(new Error('Failed at ' + version))
@@ -102,7 +102,7 @@ function run (options, callback) {
       callback(null)
       events.emit('postuninstall', version)
     }
-    var child = npmSpawn.uninstall([name, '--no-save'], options.child_process, uninstallDone)
+    const child = npmSpawn.uninstall([name, '--no-save'], options.child_process, uninstallDone)
     events.emit('preuninstall', version, child)
   }
 }
