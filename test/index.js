@@ -6,12 +6,15 @@ var path = require('path')
 var run = require('../')
 
 test(function (t) {
-  t.plan(7)
+  t.plan(8)
   var logPath = path.resolve(__dirname, 'log')
   var config = {
     name: 'has-require',
     versions: ['1.0.0', '1.1.0'],
-    command: 'sh test/log.sh'
+    command: 'sh log.sh',
+    child_process: {
+      cwd: __dirname
+    }
   }
   run(config, done)
   function done (err, results) {
@@ -27,6 +30,7 @@ test(function (t) {
     t.deepEqual(items.map(function (item) {
       return item.version
     }), config.versions)
+    t.ok(require('./package.json').peerDependencies, 'peer dependencies should be preserved')
     fs.unlinkSync(logPath)
   }
 })
