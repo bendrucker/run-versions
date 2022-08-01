@@ -1,7 +1,7 @@
 {
   "name": "run-versions",
   "main": "index.js",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Run a script across multiple versions of an npm package",
   "license": "MIT",
   "repository": "bendrucker/run-versions",
